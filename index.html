@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Engineering SDLC Mastery Catalogue</title>
+
+<style>
+:root{
+
+/* ===== MODERN LIGHT THEME ===== */
+
+/* Backgrounds */
+--bg-primary:#F8FAFC;
+--bg-secondary:#F1F5F9;
+--bg-surface:#FFFFFF;
+
+/* Text */
+--text-primary:#0F172A;
+--text-secondary:#334155;
+--text-muted:#64748B;
+
+/* Accent (professional blue) */
+--accent:#8cfaba;
+--accent-hover:#1D4ED8;
+--accent-soft:#93C5FD;
+
+/* Borders */
+--border:#E2E8F0;
+--border-soft:#EEF2F7;
+
+/* Status */
+--success:#16A34A;
+--warning:#F59E0B;
+--danger:#DC2626;
+
+/* Typography */
+--font-sans: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial;
+
+--text-xs:12px;
+--text-sm:14px;
+--text-md:16px;
+--text-lg:20px;
+--text-xl:28px;
+
+/* Spacing (8px grid) */
+--space-1:4px;
+--space-2:8px;
+--space-3:12px;
+--space-4:16px;
+--space-5:24px;
+--space-6:32px;
+
+/* Radius */
+--radius-sm:6px;
+--radius-md:10px;
+--radius-lg:16px;
+
+/* Shadows (soft for light UI) */
+--shadow-card:0 1px 3px rgba(0,0,0,0.08);
+--shadow-soft:0 8px 20px rgba(0,0,0,0.08);
+
+}
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:var(--font-sans);
+background:var(--bg-primary);
+color:var(--text-primary);
+line-height:1.5;
+}
+
+.container{
+max-width:1300px;
+margin:auto;
+padding:var(--space-6);
+}
+
+h1{
+font-size:var(--text-xl);
+margin-bottom:var(--space-2);
+}
+
+h2{
+font-size:var(--text-lg);
+margin:0;
+}
+
+h3{
+font-size:var(--text-md);
+color:var(--text-secondary);
+margin-top:var(--space-4);
+}
+
+.small{
+color:var(--text-muted);
+font-size:var(--text-sm);
+}
+
+/* ===== CARDS ===== */
+
+.card{
+background:var(--bg-surface);
+border:1px solid var(--border);
+border-radius:var(--radius-md);
+padding:var(--space-5);
+margin-bottom:var(--space-5);
+box-shadow:var(--shadow-card);
+}
+
+/* ===== PHASE HEADER ===== */
+
+.phase-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+cursor:pointer;
+}
+
+.phase-header span{
+color:var(--text-muted);
+}
+
+.phase-content{
+display:none;
+margin-top:var(--space-4);
+}
+
+/* ===== GRID ===== */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:var(--space-2);
+}
+
+/* ===== TOPICS ===== */
+
+.topic{
+padding:var(--space-2);
+border-bottom:1px solid rgba(255,255,255,0.04);
+font-size:var(--text-sm);
+}
+
+.topic input{
+margin-right:var(--space-2);
+transform:scale(1.15);
+}
+
+/* ===== SEARCH INPUT ===== */
+
+.search{
+width:100%;
+padding:12px;
+border-radius:var(--radius-sm);
+border:1px solid var(--border);
+background:var(--bg-secondary);
+color:var(--text-primary);
+font-size:var(--text-sm);
+outline:none;
+}
+
+.search:focus{
+border-color:var(--accent);
+}
+
+/* ===== PROGRESS ===== */
+
+.progressbar{
+height:10px;
+background:var(--bg-secondary);
+border-radius:20px;
+margin-top:var(--space-3);
+overflow:hidden
+}
+
+.progressfill{
+height:10px;
+background:linear-gradient(90deg,var(--accent),var(--accent-soft));
+width:0%;
+transition:width .3s ease
+}
+
+/* ===== BUTTONS (for future features) ===== */
+
+.button{
+padding:10px 14px;
+border-radius:var(--radius-sm);
+border:none;
+font-size:var(--text-sm);
+cursor:pointer;
+}
+
+.button-primary{
+background:var(--accent);
+color:white;
+}
+
+.button-primary:hover{
+background:var(--accent-hover);
+}
+
+.button-secondary{
+background:var(--bg-secondary);
+color:var(--text-primary);
+border:1px solid var(--border);
+}
+
+/* ===== DASHBOARD LAYOUT ===== */
+
+.header{
+margin-bottom:var(--space-5);
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media(max-width:900px){
+.container{padding:var(--space-5)}
+.grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+}
+
+@media(max-width:600px){
+.container{padding:var(--space-4)}
+h1{font-size:22px}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<h1>Engineering SDLC Mastery Catalogue</h1>
+<p class="small">End‑to‑end engineering learning tracker covering architecture, distributed systems, cloud and production systems.</p>
+</div>
+
+<div class="card">
+<h2>Overall Progress</h2>
+<div class="progressbar"><div id="progress" class="progressfill"></div></div>
+<p id="progressText" class="small"></p>
+</div>
+
+<div class="card">
+<h2>Search Topics</h2>
+<input id="search" class="search" placeholder="Search any engineering topic...">
+</div>
+
+
+<div class="card">
+<h2>AI Learning Prompt</h2>
+<p class="small">Copy this prompt and replace <b>[TARGET_TOPIC]</b> when starting a new chat.</p>
+
+<textarea id="mentorPrompt" style="
+width:100%;
+height:260px;
+padding:12px;
+border-radius:8px;
+border:1px solid var(--border);
+background:var(--bg-secondary);
+font-size:13px;
+line-height:1.5;
+resize:vertical;
+">
+
+You are a Staff/Principal Software Engineer and an elite systems design instructor.
+
+I am following a structured roadmap to master the entire Software Development Lifecycle (SDLC), including architecture, distributed systems, backend engineering, cloud infrastructure, observability, performance engineering, and production reliability.
+
+I am currently studying this topic:
+
+[TARGET_TOPIC]
+
+Teach this deeply with production-level understanding.
+
+Structure your response:
+
+1. Core Concept
+2. Why This Exists
+3. Internal Working
+4. System Design Perspective
+5. Production Implementation
+6. Tradeoffs
+7. Real World Examples
+8. Code / Pseudocode
+9. Interview Insights
+10. Practical Exercise
+
+Assume I am a software engineer with 2+ years experience aiming for Senior/Staff Engineer level.
+
+Avoid shallow explanations. Go deep.
+</textarea>
+
+<br><br>
+
+<button onclick="copyPrompt()" class="button button-primary">
+Copy Prompt
+</button>
+
+</div>
+
+
+
+<!-- PHASE 1 -->
+
+<div class="card phase">
+<div class="phase-header" onclick="toggle(this)">
+<h2>Phase 1 — Software Engineering Foundations</h2>
+<span>▼</span>
+</div>
+
+<div class="phase-content grid">
+<label class="topic"><input type="checkbox">SDLC Models</label>
+<label class="topic"><input type="checkbox">Waterfall</label>
+<label class="topic"><input type="checkbox">Agile Methodology</label>
+<label class="topic"><input type="checkbox">Scrum Framework</label>
+<label class="topic"><input type="checkbox">Kanban</label>
+<label class="topic"><input type="checkbox">Lean Software Development</label>
+<label class="topic"><input type="checkbox">Requirement Engineering</label>
+<label class="topic"><input type="checkbox">Functional Requirements</label>
+<label class="topic"><input type="checkbox">Non Functional Requirements</label>
+<label class="topic"><input type="checkbox">Stakeholder Mapping</label>
+<label class="topic"><input type="checkbox">Product Roadmapping</label>
+<label class="topic"><input type="checkbox">Architecture Decision Records</label>
+<label class="topic"><input type="checkbox">RFC Writing</label>
+<label class="topic"><input type="checkbox">Technical Specifications</label>
+</div>
+</div>
+
+
+<!-- PHASE 2 -->
+
+<div class="card phase">
+<div class="phase-header" onclick="toggle(this)">
+<h2>Phase 2 — Coding Principles & Architecture</h2>
+<span>▼</span>
+</div>
+
+<div class="phase-content grid">
+<label class="topic"><input type="checkbox">SOLID Principles</label>
+<label class="topic"><input type="checkbox">DRY</label>
+<label class="topic"><input type="checkbox">KISS</label>
+<label class="topic"><input type="checkbox">YAGNI</label>
+<label class="topic"><input type="checkbox">Code Smells</label>
+<label class="topic"><input type="checkbox">Refactoring Patterns</label>
+<label class="topic"><input type="checkbox">Clean Architecture</label>
+<label class="topic"><input type="checkbox">Hexagonal Architecture</label>
+<label class="topic"><input type="checkbox">Onion Architecture</label>
+<label class="topic"><input type="checkbox">Domain Driven Design</label>
+<label class="topic"><input type="checkbox">Design Patterns</label>
+<label class="topic"><input type="checkbox">Dependency Injection</label>
+<label class="topic"><input type="checkbox">Inversion of Control</label>
+<label class="topic"><input type="checkbox">Modular Monoliths</label>
+</div>
+</div>
+
+
+<!-- PHASE 3 -->
+
+<div class="card phase">
+<div class="phase-header" onclick="toggle(this)">
+<h2>Phase 3 — Backend Engineering</h2>
+<span>▼</span>
+</div>
+
+<div class="phase-content grid">
+<label class="topic"><input type="checkbox">REST API Design</label>
+<label class="topic"><input type="checkbox">GraphQL</label>
+<label class="topic"><input type="checkbox">gRPC</label>
+<label class="topic"><input type="checkbox">Authentication</label>
+<label class="topic"><input type="checkbox">Authorization</label>
+<label class="topic"><input type="checkbox">JWT</label>
+<label class="topic"><input type="checkbox">OAuth</label>
+<label class="topic"><input type="checkbox">API Gateway</label>
+<label class="topic"><input type="checkbox">Rate Limiting</label>
+<label class="topic"><input type="checkbox">Caching Strategies</label>
+<label class="topic"><input type="checkbox">Session Management</label>
+<label class="topic"><input type="checkbox">Background Jobs</label>
+<label class="topic"><input type="checkbox">Message Queues</label>
+<label class="topic"><input type="checkbox">Distributed Transactions</label>
+</div>
+</div>
+
+
+<!-- PHASE 4 -->
+
+<div class="card phase">
+<div class="phase-header" onclick="toggle(this)">
+<h2>Phase 4 — Databases & Storage Systems</h2>
+<span>▼</span>
+</div>
+
+<div class="phase-content grid">
+<label class="topic"><input type="checkbox">Relational Databases</label>
+<label class="topic"><input type="checkbox">PostgreSQL Internals</label>
+<label class="topic"><input type="checkbox">MySQL Internals</label>
+<label class="topic"><input type="checkbox">NoSQL Databases</label>
+<label class="topic"><input type="checkbox">MongoDB</label>
+<label class="topic"><input type="checkbox">DynamoDB</label>
+<label class="topic"><input type="checkbox">Indexing</label>
+<label class="topic"><input type="checkbox">Query Optimization</label>
+<label class="topic"><input type="checkbox">Replication</label>
+<label class="topic"><input type="checkbox">Sharding</label>
+<label class="topic"><input type="checkbox">CAP Theorem</label>
+<label class="topic"><input type="checkbox">Eventual Consistency</label>
+<label class="topic"><input type="checkbox">Data Warehousing</label>
+<label class="topic"><input type="checkbox">OLAP vs OLTP</label>
+</div>
+</div>
+
+
+<!-- PHASE 5 -->
+
+<div class="card phase">
+<div class="phase-header" onclick="toggle(this)">
+<h2>Phase 5 — Distributed Systems</h2>
+<span>▼</span>
+</div>
+
+<div class="phase-content grid">
+<label class="topic"><input type="checkbox">Distributed Systems Basics</label>
+<label class="topic"><input type="checkbox">Consensus Algorithms</label>
+<label class="topic"><input type="checkbox">Raft</label>
+<label class="topic"><input type="checkbox">Paxos</label>
+<label class="topic"><input type="checkbox">Leader Election</label>
+<label class="topic"><input type="checkbox">Service Discovery</label>
+<label class="topic"><input type="checkbox">Circuit Breakers</label>
+<label class="topic"><input type="checkbox">Retry Patterns</label>
+<label class="topic"><input type="checkbox">Saga Pattern</label>
+<label class="topic"><input type="checkbox">Event Driven Architecture</label>
+<label class="topic"><input type="checkbox">Idempotency</label>
+<label class="topic"><input type="checkbox">Backpressure</label>
+</div>
+</div>
+
+
+<!-- PHASE 6 -->
+
+<div class="card phase">
+<div class="phase-header" onclick="toggle(this)">
+<h2>Phase 6 — Messaging & Streaming</h2>
+<span>▼</span>
+</div>
+
+<div class="phase-content grid">
+<label class="topic"><input type="checkbox">Kafka Architecture</label>
+<label class="topic"><input type="checkbox">Kafka Brokers</label>
+<label class="topic"><input type="checkbox">Kafka Topics</label>
+<label class="topic"><input type="checkbox">Partitions</label>
+<label class="topic"><input type="checkbox">Consumer Groups</label>
+<label class="topic"><input type="checkbox">Exactly Once Processing</label>
+<label class="topic"><input type="checkbox">Stream Processing</label>
+<label class="topic"><input type="checkbox">Kafka Streams</label>
+<label class="topic"><input type="checkbox">Event Sourcing</label>
+<label class="topic"><input type="checkbox">CQRS</label>
+</div>
+</div>
+
+
+<!-- PHASE 7 -->
+
+<div class="card phase">
+<div class="phase-header" onclick="toggle(this)">
+<h2>Phase 7 — Cloud & Infrastructure</h2>
+<span>▼</span>
+</div>
+
+<div class="phase-content grid">
+<label class="topic"><input type="checkbox">Cloud Computing Fundamentals</label>
+<label class="topic"><input type="checkbox">AWS Core Services</label>
+<label class="topic"><input type="checkbox">IAM</label>
+<label class="topic"><input type="checkbox">VPC Networking</label>
+<label class="topic"><input type="checkbox">Load Balancing</label>
+<label class="topic"><input type="checkbox">Auto Scaling</label>
+<label class="topic"><input type="checkbox">Containers</label>
+<label class="topic"><input type="checkbox">Docker</label>
+<label class="topic"><input type="checkbox">Kubernetes</label>
+<label class="topic"><input type="checkbox">Infrastructure as Code</label>
+<label class="topic"><input type="checkbox">Terraform</label>
+<label class="topic"><input type="checkbox">Helm</label>
+</div>
+</div>
+
+
+<!-- PHASE 8 -->
+
+<div class="card phase">
+<div class="phase-header" onclick="toggle(this)">
+<h2>Phase 8 — Observability & Production Engineering</h2>
+<span>▼</span>
+</div>
+
+<div class="phase-content grid">
+<label class="topic"><input type="checkbox">Monitoring</label>
+<label class="topic"><input type="checkbox">Logging</label>
+<label class="topic"><input type="checkbox">Tracing</label>
+<label class="topic"><input type="checkbox">Prometheus</label>
+<label class="topic"><input type="checkbox">Grafana</label>
+<label class="topic"><input type="checkbox">OpenTelemetry</label>
+<label class="topic"><input type="checkbox">SLIs</label>
+<label class="topic"><input type="checkbox">SLOs</label>
+<label class="topic"><input type="checkbox">Error Budgets</label>
+<label class="topic"><input type="checkbox">Incident Management</label>
+<label class="topic"><input type="checkbox">Postmortems</label>
+</div>
+</div>
+
+
+<!-- PHASE 9 -->
+
+<div class="card phase">
+<div class="phase-header" onclick="toggle(this)">
+<h2>Phase 9 — Performance Engineering</h2>
+<span>▼</span>
+</div>
+
+<div class="phase-content grid">
+<label class="topic"><input type="checkbox">Latency Analysis</label>
+<label class="topic"><input type="checkbox">Throughput Optimization</label>
+<label class="topic"><input type="checkbox">Load Testing</label>
+<label class="topic"><input type="checkbox">Stress Testing</label>
+<label class="topic"><input type="checkbox">Profiling</label>
+<label class="topic"><input type="checkbox">Memory Optimization</label>
+<label class="topic"><input type="checkbox">Concurrency</label>
+<label class="topic"><input type="checkbox">Threading Models</label>
+<label class="topic"><input type="checkbox">Async Programming</label>
+</div>
+</div>
+
+
+</div>
+
+<script>
+const boxes=[...document.querySelectorAll("input[type='checkbox']")]
+
+boxes.forEach((b,i)=>{
+ const s=localStorage.getItem("eng_track_"+i)
+ if(s==="true") b.checked=true
+
+ b.addEventListener("change",()=>{
+  localStorage.setItem("eng_track_"+i,b.checked)
+  update()
+ })
+})
+
+function checkPhase(btn,state){
+
+const phase = btn.closest(".phase")
+const inputs = phase.querySelectorAll("input[type='checkbox']")
+
+inputs.forEach(input=>{
+ input.checked = state
+
+ const index = boxes.indexOf(input)
+ localStorage.setItem("eng_track_"+index,state)
+})
+
+update()
+
+}
+
+function update(){
+ const total=boxes.length
+ const checked=boxes.filter(x=>x.checked).length
+ const percent=Math.round((checked/total)*100)
+ document.getElementById("progress").style.width=percent+"%"
+ document.getElementById("progressText").innerText=checked+" / "+total+" topics completed"
+}
+
+update()
+
+function toggle(el){
+ const c=el.nextElementSibling
+ c.style.display=c.style.display==='grid'?'none':'grid'
+}
+
+const search=document.getElementById("search")
+search.addEventListener("keyup",()=>{
+ const val=search.value.toLowerCase()
+ document.querySelectorAll('.topic').forEach(t=>{
+  t.style.display=t.innerText.toLowerCase().includes(val)?'block':'none'
+ })
+})
+
+function copyPrompt(){
+const text = document.getElementById("mentorPrompt")
+text.select()
+text.setSelectionRange(0,99999)
+document.execCommand("copy")
+alert("Prompt copied! Paste it into ChatGPT and replace [TARGET_TOPIC].")
+}
+
+
+</script>
+
+</body>
+</html>
